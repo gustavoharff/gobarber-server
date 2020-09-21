@@ -6,6 +6,8 @@ import AppError from '@shared/errors/AppError';
 import User from '@modules/users/infra/typeorm/entities/User';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 
+import UserMapper from '../mapper/UserMapper';
+
 interface IRequest {
   name: string;
   email: string;
@@ -34,9 +36,9 @@ class CreateUserService {
       password: hashedPassword,
     });
 
-    delete user.password;
+    const mappedUser = UserMapper.toDTO(user);
 
-    return user;
+    return mappedUser;
   }
 }
 
