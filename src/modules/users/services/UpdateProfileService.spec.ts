@@ -1,7 +1,5 @@
 import 'reflect-metadata';
 
-// import AppError from '@shared/errors/AppError';
-
 import AppError from '@shared/errors/AppError';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
@@ -37,6 +35,16 @@ describe('UpdateUserAvatar', () => {
 
     expect(updatedUser.name).toBe('John Trê');
     expect(updatedUser.email).toBe('johntre@example.com');
+  });
+
+  it('should not be able to update the profile on non-exiting user', async () => {
+    await expect(
+      updateProfile.execute({
+        user_id: 'non-exiting-user-id',
+        name: 'Test',
+        email: 'test@example.com',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 
   it('should not be able to change to another user email', async () => {
