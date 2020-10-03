@@ -8,7 +8,9 @@ coverage
 ormconfig.json
 dist
 
-tmp/*
+tmp/*.*
+tmp/**/*.*
+!tmp/uploads/.gitkeep
 !tmp/.gitkeep
 
 .DS_Store
